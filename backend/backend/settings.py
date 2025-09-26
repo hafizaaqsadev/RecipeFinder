@@ -1,12 +1,15 @@
 from pathlib import Path
 from datetime import timedelta
+import os  # environment variables ke liye
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-e9y72isw+0qdc$d5ub*2y7-$2)vc(30b4r*blv1kngpnbbv@26'
-DEBUG = True
+# ---------------- Secret Key & Debug ----------------
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")  # fallback sirf development ke liye
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+# ---------------- Allowed Hosts ----------------
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")  # comma-separated domains from Render
 
 # ---------------- Installed Apps ----------------
 INSTALLED_APPS = [
@@ -29,7 +32,7 @@ INSTALLED_APPS = [
 
 # ---------------- Middleware ----------------
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,18 +71,10 @@ DATABASES = {
 
 # ---------------- Password Validation ----------------
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 # ---------------- Internationalization ----------------
@@ -89,8 +84,8 @@ USE_I18N = True
 USE_TZ = True
 
 # ---------------- Static Files ----------------
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # ye line add ki
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # collectstatic ke liye zaruri
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
