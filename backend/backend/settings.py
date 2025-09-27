@@ -1,15 +1,16 @@
 from pathlib import Path
 from datetime import timedelta
-import os  # environment variables ke liye
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ---------------- Secret Key & Debug ----------------
-SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")  # fallback sirf development ke liye
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")  # fallback only for dev
+DEBUG = os.environ.get("DEBUG", "False") == "True"  # Production default: False
 
 # ---------------- Allowed Hosts ----------------
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")  # comma-separated domains from Render
+# PythonAnywhere domain + localhost for testing
+ALLOWED_HOSTS =ALLOWED_HOSTS = ['hafizaaqsa.pythonanywhere.com', 'www.hafizaaqsa.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 # ---------------- Installed Apps ----------------
 INSTALLED_APPS = [
@@ -32,7 +33,7 @@ INSTALLED_APPS = [
 
 # ---------------- Middleware ----------------
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -44,6 +45,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
+# ---------------- Templates ----------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -84,9 +86,10 @@ USE_I18N = True
 USE_TZ = True
 
 # ---------------- Static Files ----------------
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # collectstatic ke liye zaruri
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Required for collectstatic
 
+# ---------------- Default Auto Field ----------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ---------------- Django REST Framework ----------------
