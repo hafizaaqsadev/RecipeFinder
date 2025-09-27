@@ -10,7 +10,7 @@ DEBUG = os.environ.get("DEBUG", "False") == "True"  # Production default: False
 
 # ---------------- Allowed Hosts ----------------
 # PythonAnywhere domain + localhost for testing
-ALLOWED_HOSTS = ['hafizaaqsa.pythonanywhere.com', 'www.hafizaaqsa.pythonanywhere.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['hafizaaqsa.pythonanywhere.com', 'www.hafizaaqsa.pythonanywhere.com', "recipefinder-production-5583.up.railway.app",'127.0.0.1', 'localhost']
 
 # ---------------- Installed Apps ----------------
 INSTALLED_APPS = [
