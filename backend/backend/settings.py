@@ -9,8 +9,15 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")  # fallback onl
 DEBUG = os.environ.get("DEBUG", "False") == "True"  # Production default: False
 
 # ---------------- Allowed Hosts ----------------
-# PythonAnywhere domain + localhost for testing
-ALLOWED_HOSTS = ['hafizaaqsa.pythonanywhere.com', 'www.hafizaaqsa.pythonanywhere.com', "recipefinder-production-5583.up.railway.app",'127.0.0.1', 'localhost']
+# Add your Railway domain here
+ALLOWED_HOSTS = [
+    'hafizaaqsa.pythonanywhere.com',
+    'www.hafizaaqsa.pythonanywhere.com',
+    'recipefinder-production-5583.up.railway.app',
+    'recipefinder-production-c58b.up.railway.app',  # NEW Railway URL
+    '127.0.0.1',
+    'localhost'
+]
 
 # ---------------- Installed Apps ----------------
 INSTALLED_APPS = [
@@ -87,7 +94,7 @@ USE_TZ = True
 
 # ---------------- Static Files ----------------
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Required for collectstatic
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # ---------------- Default Auto Field ----------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -111,3 +118,6 @@ SIMPLE_JWT = {
 
 # ---------------- CORS Settings ----------------
 CORS_ALLOW_ALL_ORIGINS = True
+
+# ---------------- SSL / Proxy Fix for Railway ----------------
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Required for HTTPS on Railway
